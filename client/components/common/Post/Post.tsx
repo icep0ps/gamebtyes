@@ -11,31 +11,31 @@ import 'swiper/css/scrollbar';
 import { Article } from '@/libs/types/types';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { A11y, Navigation, Pagination, Scrollbar } from 'swiper/modules';
+import Link from 'next/link';
 
 type Props = {
   post: Article;
 };
 
 const Post = (props: Props) => {
-  const { title, body } = props.post;
-  const paragraphs = body.match(/[^]{1,500}/g);
-  console.log(paragraphs);
+  const { title, content, author, url } = props.post;
+  const paragraphs = content.match(/[^]{1,300}/g);
 
   return (
     <div className="min-h-[400px] rounded-3xl flex flex-col justify-between w-full gap-5">
       <div className="flex items-center justify-between">
         <div className="flex gap-3 items-center">
           <span className="bg-white rounded-full h-12 w-12"></span>
-          <span>Epic Games</span>
+          <span>{author}</span>
         </div>
 
-        <span>Read article</span>
+        <span>
+          <Link href={url}>Read article</Link>
+        </span>
       </div>
 
       <Swiper
         slidesPerView={1}
-        onSlideChange={() => console.log('slide change')}
-        onSwiper={(swiper) => console.log(swiper)}
         scrollbar={{ draggable: true }}
         pagination={{ clickable: true }}
         modules={[Navigation, Pagination, Scrollbar, A11y]}
