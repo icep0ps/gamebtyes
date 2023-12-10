@@ -23,7 +23,7 @@ export default async function scrapLatestArticles() {
         author: $("meta[name='parsely-author']").attr('content'),
         thumbnail: $("meta[property='og:image']").attr('content'),
         description: $("meta[property='og:description']").attr('content'),
-        content: $('div#article-body').not('script').text(),
+        content: $('div#article-body').find('*:not(script)').text(),
         url: $("meta[property='og:url']").attr('content'),
         site_logo: $("link[rel='shortcut icon']").attr('href'),
       };

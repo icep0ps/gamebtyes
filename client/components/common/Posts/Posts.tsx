@@ -38,8 +38,6 @@ const Posts = () => {
       : getPosts().then((post) => setPosts(post));
   }, [filters]);
 
-  console.log(posts);
-
   return (
     <div className="overflow-y-scroll h-full flex flex-col gap-5">
       {posts?.map((post: Article) => (

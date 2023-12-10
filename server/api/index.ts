@@ -5,6 +5,7 @@ import express, { type Request, type Response } from 'express';
 import scrapPlatfromNews from './scrappers/platform';
 import scrapLatestArticles from './scrappers/latest';
 import scrapPopularArticles from './scrappers/popular';
+import scrapExploreArticles from './scrappers/explore';
 
 const app = express();
 const port = 3001;
@@ -24,6 +25,12 @@ app.get('/latest', async (req: Request, res: Response) => {
 app.get('/platform', async (req: Request, res: Response) => {
   const params = req.query;
   const data = await scrapPlatfromNews(params);
+  res.json(data);
+});
+
+app.get('/explore', async (req: Request, res: Response) => {
+  const params = req.query;
+  const data = await scrapExploreArticles();
   res.json(data);
 });
 
