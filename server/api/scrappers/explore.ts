@@ -3,6 +3,7 @@ import * as cheerio from 'cheerio';
 
 export default async function scrapExploreArticles() {
   const response = await fetch(`${process.env.EXPLORE_NEWS_BASE_URL}/gaming`);
+  console.log(`${process.env.EXPLORE_NEWS_BASE_URL}/gaming`);
   const html = await response.text();
 
   const $ = cheerio.load(html);
@@ -11,8 +12,6 @@ export default async function scrapExploreArticles() {
       return $(this).attr('href');
     })
     .get();
-
-  console.log(links);
 
   return await Promise.all(
     links.map(async (link) => {
