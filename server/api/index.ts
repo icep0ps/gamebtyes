@@ -1,37 +1,56 @@
 import 'dotenv/config';
 import cors from 'cors';
+
+import { SearchParams } from '../types';
 import express, { type Request, type Response } from 'express';
 
-import scrapPlatfromNews from './scrappers/platform';
-import scrapLatestArticles from './scrappers/latest';
-import scrapPopularArticles from './scrappers/popular';
-import scrapExploreArticles from './scrappers/explore';
+import Popular from '../controllers/popular';
+import Latest from '../controllers/latest';
+import Explore from '../controllers/explore';
+import Platform from '../controllers/platform';
 
 const app = express();
 const port = 3001;
 
 app.use(cors());
 
-app.get('/popular', async (req: Request, res: Response) => {
-  const data = await scrapPopularArticles();
-  res.json(data);
+app.get('/popular', async (request: Request, response: Response) => {
+  const data = await new Popular(
+    `${process.env.POPULAR_NEWS_SITE_BASE_URL}/pc?filter=articles`
+  ).fetch();
+
+  response.json(data);
 });
 
-app.get('/latest', async (req: Request, res: Response) => {
-  const data = await scrapLatestArticles();
-  res.json(data);
+app.get('/latest', async (request: Request, response: Response) => {
+  const data = await new Latest(
+    `${process.env.LATESET_NEWS_SITE_BASE_URL}/uk/news/`
+  ).fetch();
+
+  response.json(data);
 });
 
-app.get('/platform', async (req: Request, res: Response) => {
-  const params = req.query;
-  const data = await scrapPlatfromNews(params);
-  res.json(data);
-});
+app.get(
+  '/platform',
+  async (request: Request<{}, {}, {}, SearchParams>, response: Response) => {
+    const params = request.query;
 
-app.get('/explore', async (req: Request, res: Response) => {
-  const params = req.query;
-  const data = await scrapExploreArticles();
-  res.json(data);
+    if (params) {
+      const searchparams = new URLSearchParams(params);
+      const data = await new Platform(
+        `${process.env.LATESET_NEWS_SITE_BASE_URL}/uk/search/?${searchparams}`
+      ).fetch();
+      return response.json(data);
+    }
+
+    return response.json({ msg: 'could not find data' });
+  }
+);
+
+app.get('/explore', async (request: Request, response: Response) => {
+  const params = request.query;
+  const data = await new Explore(`${process.env.EXPLORE_NEWS_BASE_URL}/gaming`).fetch();
+  response.json(data);
 });
 
 app.listen(port, () => {
