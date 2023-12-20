@@ -8,9 +8,14 @@
   --background-end-rgb: 255, 255, 255;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 html,
 body {
   height: 100%;
+  position: relative;
 }
 
 @media (prefers-color-scheme: dark) {

@@ -17,7 +17,7 @@ const Explore = () => {
   });
 
   return (
-    <main className="flex flex-col gap-5 h-full w-full">
+    <>
       <div className="flex flex-col gap-2">
         <h1 className="text-2xl">Explore</h1>
         <input type="text" value="search" className="bg-zinc-800 p-2 w-full rounded-xl" />
@@ -27,7 +27,7 @@ const Explore = () => {
           <Post key={post.title} post={post} />
         ))}
       </div>
-    </main>
+    </>
   );
 };
 
