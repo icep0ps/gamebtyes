@@ -78,6 +78,22 @@ app.get(
   }
 );
 
+app.get(
+  '/post',
+  async (request: Request<{}, {}, {}, ExploreSearchParams>, response: Response) => {
+    try {
+      const sitelink = request.query.sitelink;
+      const data = await new Explore(
+        `${process.env.EXPLORE_NEWS_BASE_URL}/gaming/`
+      ).fetchContent({ link: sitelink });
+      response.json(data);
+    } catch (error) {
+      response.statusCode = 500;
+      response.json({ msg: 'could not find data' });
+    }
+  }
+);
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });

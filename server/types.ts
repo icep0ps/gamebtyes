@@ -19,7 +19,5 @@ export type FiltersSearchParams = {
   sortBy: string;
 };
 export type ExploreSearchParams = {
-  searchTerm: string;
-  articleType: string;
-  sortBy: string;
+  sitelink: string;
 };
