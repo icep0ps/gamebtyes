@@ -24,7 +24,13 @@ const PostPage: NextPage<Props> = async (props) => {
   if (link) {
     post = await getPost(link);
     return (
-      <div className="h-full flex items-center ">{post && <Post post={post} />}</div>
+      <div className="h-full flex items-center ">
+        {post && (
+          <div className="overflow-y-scroll h-full flex flex-col gap-5 items-center justify-center">
+            <Post post={post} />
+          </div>
+        )}
+      </div>
     );
   }
 

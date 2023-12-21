@@ -40,7 +40,7 @@ const Explore = () => {
       </div>
       <div className="flex flex-wrap justify-between gap-4 overflow-y-scroll">
         <ErrorBoundary FallbackComponent={ErrorComponent}>
-          {posts.map((post) => (
+          {posts?.map((post) => (
             <Post key={post.title} post={post} />
           ))}
         </ErrorBoundary>

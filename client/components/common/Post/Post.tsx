@@ -12,6 +12,7 @@ import { Article } from '@/libs/types/types';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { A11y, Navigation, Pagination, Scrollbar } from 'swiper/modules';
 import Link from 'next/link';
+import Cover from './Cover';
 
 type Props = {
   post: Article;
@@ -41,6 +42,9 @@ const Post = (props: Props) => {
         modules={[Navigation, Pagination, Scrollbar, A11y]}
         className="h-full w-full flex flex-col "
       >
+        <SwiperSlide className="h-full w-full">
+          <Cover post={props.post} />
+        </SwiperSlide>
         {paragraphs?.map((paragraphs, index) => {
           return (
             <SwiperSlide key={index} className="h-full w-full">
