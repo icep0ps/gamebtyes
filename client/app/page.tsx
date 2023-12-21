@@ -1,8 +1,12 @@
+'use client';
+
 import Remove from '@/components/common/Remove';
 import Posts from '@/components/common/Posts/Posts';
 import Filter from '@/components/common/Filter/Filter';
+import { ErrorBoundary } from 'react-error-boundary';
+import Error from '@/components/common/Error';
 
-export default async function Home() {
+export default function Home() {
   return (
     <>
       <h1 className="text-2xl">Latest news</h1>
@@ -12,7 +16,9 @@ export default async function Home() {
         <Filter name="Mobile Gaming" />
         <Filter name="Console Gaming" />
       </div>
-      <Posts />
+      <ErrorBoundary FallbackComponent={Error}>
+        <Posts />
+      </ErrorBoundary>
     </>
   );
 }

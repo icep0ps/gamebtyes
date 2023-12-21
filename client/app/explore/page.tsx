@@ -1,8 +1,10 @@
 'use client';
 
+import Error from '@/components/common/Error';
 import Post from '@/components/explore/Post';
 import { Article } from '@/libs/types/types';
 import React, { useEffect, useState } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 
 const getPosts = async () => {
   const res = await fetch('http://localhost:3001/explore');
@@ -23,9 +25,11 @@ const Explore = () => {
         <input type="text" value="search" className="bg-zinc-800 p-2 w-full rounded-xl" />
       </div>
       <div className="flex flex-wrap justify-between gap-4 overflow-y-scroll">
-        {posts.map((post) => (
-          <Post key={post.title} post={post} />
-        ))}
+        <ErrorBoundary FallbackComponent={Error}>
+          {posts.map((post) => (
+            <Post key={post.title} post={post} />
+          ))}
+        </ErrorBoundary>
       </div>
     </>
   );

@@ -13,10 +13,13 @@ export type FetchOptions = {
   requiresBaseURL?: boolean;
 };
 
-export type SearchParams = {
+export type FiltersSearchParams = {
   searchTerm: string;
   articleType: string;
   sortBy: string;
 };
-
-
+export type ExploreSearchParams = {
+  searchTerm: string;
+  articleType: string;
+  sortBy: string;
+};

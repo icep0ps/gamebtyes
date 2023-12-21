@@ -1,8 +1,8 @@
 import 'dotenv/config';
 import cors from 'cors';
 
-import { SearchParams } from '../types';
 import express, { type Request, type Response } from 'express';
+import { ExploreSearchParams, FiltersSearchParams } from '../types';
 
 import Popular from '../controllers/popular';
 import Latest from '../controllers/latest';
@@ -19,20 +19,34 @@ app.get('/popular', async (request: Request, response: Response) => {
     `${process.env.POPULAR_NEWS_SITE_BASE_URL}/pc?filter=articles`
   ).fetch();
 
+  response.set({
+    'Cache-Control': 'private, max-age=604800',
+  });
+
   response.json(data);
 });
 
 app.get('/latest', async (request: Request, response: Response) => {
-  const data = await new Latest(
-    `${process.env.LATESET_NEWS_SITE_BASE_URL}/uk/news/`
-  ).fetch();
+  try {
+    const data = await new Latest(
+      `${process.env.LATESET_NEWS_SITE_BASE_URL}/uk/news/`
+    ).fetch();
+    response.set({
+      'Cache-Control': 'private, max-age=604800',
+    });
 
-  response.json(data);
+    response.json(data);
+  } catch (error) {
+    response.statusCode = 500;
+    response.json({
+      msg: 'Failed to get lastest: ' + error,
+    });
+  }
 });
 
 app.get(
   '/platform',
-  async (request: Request<{}, {}, {}, SearchParams>, response: Response) => {
+  async (request: Request<{}, {}, {}, FiltersSearchParams>, response: Response) => {
     const params = request.query;
 
     if (params) {
@@ -47,11 +61,22 @@ app.get(
   }
 );
 
-app.get('/explore', async (request: Request, response: Response) => {
-  const params = request.query;
-  const data = await new Explore(`${process.env.EXPLORE_NEWS_BASE_URL}/gaming`).fetch();
-  response.json(data);
-});
+app.get(
+  '/explore',
+  async (request: Request<{}, {}, {}, ExploreSearchParams>, response: Response) => {
+    try {
+      const params = request.query;
+      const searchparams = new URLSearchParams(params);
+      const data = await new Explore(
+        `${process.env.EXPLORE_NEWS_BASE_URL}/gaming/?${searchparams}`
+      ).fetch();
+      response.json(data);
+    } catch (error) {
+      response.statusCode = 500;
+      response.json({ msg: 'could not find data' });
+    }
+  }
+);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
