@@ -38,7 +38,6 @@ const Post = (props: Props) => {
       <Swiper
         slidesPerView={1}
         scrollbar={{ draggable: true }}
-        pagination={{ clickable: true }}
         modules={[Navigation, Pagination, Scrollbar, A11y]}
         className="h-full w-full flex flex-col "
       >
@@ -54,9 +53,9 @@ const Post = (props: Props) => {
         })}
       </Swiper>
 
-      <div>
-        <span>Like: 1k </span>
-        <span>Comments: 12.5k</span>
+      <div className="flex gap-5">
+        <span>Save</span>
+        <span>Share</span>
       </div>
     </div>
   );
