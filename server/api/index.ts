@@ -47,17 +47,23 @@ app.get('/latest', async (request: Request, response: Response) => {
 app.get(
   '/platform',
   async (request: Request<{}, {}, {}, FiltersSearchParams>, response: Response) => {
-    const params = request.query;
-
-    if (params) {
-      const searchparams = new URLSearchParams(params);
-      const data = await new Platform(
-        `${process.env.LATESET_NEWS_SITE_BASE_URL}/uk/search/?${searchparams}`
-      ).fetch();
-      return response.json(data);
+    try {
+      const params = request.query;
+      if (params) {
+        const searchparams = new URLSearchParams(params);
+        const data = await new Platform(
+          `${process.env.LATESET_NEWS_SITE_BASE_URL}/uk/search/?${searchparams}`
+        ).fetch();
+        return response.json(data);
+      }
+      response.statusCode = 500;
+      return response.json({ msg: 'could not find data' });
+    } catch (error) {
+      response.statusCode = 500;
+      response.json({
+        msg: 'Failed to get lastest: ' + error,
+      });
     }
-
-    return response.json({ msg: 'could not find data' });
   }
 );
 
