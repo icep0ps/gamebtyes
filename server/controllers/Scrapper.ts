@@ -1,5 +1,6 @@
 import * as cheerio from 'cheerio';
 import { FetchOptions, ScrapResult } from '../types';
+import { type Request, type Response } from 'express';
 
 class Scraper {
   protected BASE_URL: string;
@@ -64,7 +65,7 @@ class Scraper {
     else throw new Error('Could not get base URL');
   }
 
-  public async fetch() {
+  public async fetch(request: Request, response: Response, next: any) {
     try {
       const html = await this.fetchHTML();
 
@@ -72,8 +73,15 @@ class Scraper {
       const articles = await Promise.all(
         links.map((link) => this.fetchContent({ link }))
       );
-      return articles;
-    } catch (error) {}
+
+      response.set({
+        'Cache-Control': 'private, max-age=604800',
+      });
+
+      response.json(articles);
+    } catch (error) {
+      response.json({ msg: error });
+    }
   }
 }
 

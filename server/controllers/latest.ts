@@ -10,4 +10,4 @@ class Latest extends Scraper {
   }
 }
 
-export default Latest;
+export default new Latest(`${process.env.LATESET_NEWS_SITE_BASE_URL}/uk/news/`);

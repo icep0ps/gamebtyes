@@ -1,4 +1,5 @@
 import Scraper from './Scrapper';
+import { type Request, type Response } from 'express';
 
 class Popular extends Scraper {
   constructor(url: string) {
@@ -9,14 +10,21 @@ class Popular extends Scraper {
     };
   }
 
-  public async fetch() {
+  public async fetch(request: Request, response: Response, next: any) {
     const html = await this.fetchHTML();
 
     const links = this.extractMultipleLinks(html);
     const articles = await Promise.all(
       links.map((link) => this.fetchContent({ link, requiresBaseURL: true }))
     );
-    return articles;
+
+    response.set({
+      'Cache-Control': 'private, max-age=604800',
+    });
+
+    response.json(articles);
   }
 }
-export default Popular;
+export default new Popular(
+  `${process.env.POPULAR_NEWS_SITE_BASE_URL}/pc?filter=articles`
+);
