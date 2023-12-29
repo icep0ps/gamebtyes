@@ -1,12 +1,16 @@
 import 'dotenv/config';
-import cors from 'cors';
 
+import cors from 'cors';
 import express from 'express';
+
+
 
 import Latest from '../controllers/latest';
 import Popular from '../controllers/popular';
 import Platform from '../controllers/platform';
 import { fetchExplore, fetchPost } from '../controllers/explore';
+
+
 
 const app = express();
 const port = 3001;
