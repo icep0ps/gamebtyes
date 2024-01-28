@@ -79,8 +79,8 @@ class Scraper {
       });
 
       response.json(articles);
-    } catch (error) {
-      response.json({ msg: error });
+    } catch (error: any) {
+      response.status(500).json({ msg: error.message });
     }
   }
 }
