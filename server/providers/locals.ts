@@ -3,10 +3,11 @@ import 'dotenv/config';
 class Locals {
   public static config() {
     /* databse connections  */
-    const host = process.env.HOST;
-    const user = process.env.USER;
-    const port = process.env.PORT;
-    const database = process.env.DATABASE_NAME;
+    const host = process.env.HOST as string;
+    const user = process.env.USER as string;
+    const port = process.env.PORT as string;
+    const password = process.env.PASSWORD as string;
+    const database = process.env.DATABASE_NAME as string;
 
     /* scrapping websites urls  */
     const exploreURL = process.env.EXPLORE_NEWS_BASE_URL;
@@ -19,10 +20,11 @@ class Locals {
       user,
       port,
       database,
+      password,
       exploreURL,
       lastestURL,
-      platformURL,
       popularURL,
+      platformURL,
     };
   }
 }
