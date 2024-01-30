@@ -12,7 +12,7 @@ export const mySchema = mysqlSchema('my_schema');
 export const user = mysqlTable('user', {
   id: int('id').autoincrement().primaryKey(),
   username: varchar('username', { length: 30 }).notNull().unique(),
-  email: varchar('username', { length: 65 }).notNull(),
+  email: varchar('email', { length: 65 }).notNull(),
   password: text('password').notNull(),
 });
 

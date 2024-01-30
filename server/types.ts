@@ -1,3 +1,5 @@
+import { user } from './providers/database/schema';
+
 export type ScrapResult = {
   title: string | undefined;
   author: string | undefined;
@@ -21,3 +23,5 @@ export type FiltersSearchParams = {
 export type ExploreSearchParams = {
   sitelink: string;
 };
+
+export type newUser = typeof user.$inferInsert;
