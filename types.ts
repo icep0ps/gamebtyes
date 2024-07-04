@@ -1,3 +1,5 @@
+import { articles } from './server/db/schemas/articles';
+
 export type ScrapResult = {
   title: string | undefined;
   author: string | undefined;
@@ -21,3 +23,7 @@ export type FiltersSearchParams = {
 export type ExploreSearchParams = {
   sitelink: string;
 };
+
+export type Filter = 'PC Gaming' | 'Mobile Gaming' | 'Console Gaming';
+
+export type Article = typeof articles.$inferInsert;
