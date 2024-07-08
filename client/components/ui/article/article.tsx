@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import { SwiperSlide } from 'swiper/react';
 
@@ -6,8 +8,9 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
+import { cn } from '@/lib/utils';
+import Slide from '@/components/ui/slide';
 import { IArticle } from '../../../../types';
-import Slide from '@/components/common/Post/Slide';
 
 type IArticleProps = React.PropsWithChildren &
   React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> & {
@@ -16,11 +19,11 @@ type IArticleProps = React.PropsWithChildren &
 
 type ICoverProps = React.PropsWithChildren & {
   withShadow?: boolean;
-};
+} & React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 
 const ArticleContext = React.createContext<IArticle | undefined>(undefined);
 
-function useArticleContext() {
+export function useArticleContext() {
   const context = React.useContext(ArticleContext);
   if (!context) throw new Error('No post context found');
   return context;
@@ -45,7 +48,7 @@ Article.cover = function cover(props: ICoverProps) {
           : undefined,
       }}
       id="thumbnail"
-      className="bg-cover bg-center bg-no-repeat h-full flex justify-end flex-col p-3 rounded-lg gap-4 pb-11 relative"
+      className={cn('bg-cover bg-center bg-no-repeat rounded-lg', props.className)}
     >
       {props.children}
     </div>

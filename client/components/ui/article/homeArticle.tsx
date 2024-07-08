@@ -7,19 +7,37 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
-import Article from './article';
+import Article, { useArticleContext } from './article';
 import { Button } from '../button';
 import { IArticle } from '../../../../types';
+import { User, Gamepad } from 'lucide-react';
 
 type IHomeArticleProps = { article: IArticle };
 
 function HomeArticleCover() {
+  const { author } = useArticleContext();
+
+  const metadata = [
+    { title: author, icon: <User size={15} /> },
+    { title: 'Gaming', icon: <Gamepad size={15} /> },
+  ];
+
   return (
-    <Article.cover withShadow>
+    <Article.cover
+      withShadow
+      className="h-full flex justify-end flex-col p-3  gap-4 pb-11 relative"
+    >
       <Button className="rounded-full text-sm self-start top-5 right-5 absolute">
         Read article
       </Button>
       <Article.title className="text-xl font-bold line-clamp-3" />
+      <div className="flex gap-3">
+        {metadata.map((data) => (
+          <li className="flex gap-2 font-bold text-xs">
+            {data.icon} {data.title}
+          </li>
+        ))}
+      </div>
       <Article.description className="text-xs" />
     </Article.cover>
   );
