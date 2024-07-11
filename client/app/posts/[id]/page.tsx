@@ -1,15 +1,13 @@
-import axios from 'axios';
 import { NextPage } from 'next';
 
-import { IArticle } from '../../../../types';
+import { IArticle, IUser } from '../../../../types';
 import FullArticle from '@/components/ui/article/fullArticle';
+import api from '@/utils/api';
 
 type Props = { params: { id: string } };
 
 const getPost = async (id: string) => {
-  return axios
-    .get<IArticle>('http://localhost:3001/articles/' + id)
-    .then((res) => res.data);
+  return api.get<IArticle>('articles/' + id).then((res) => res.data);
 };
 
 const PostPage: NextPage<Props> = async (props) => {
