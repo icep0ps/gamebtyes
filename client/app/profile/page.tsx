@@ -10,13 +10,15 @@ import ExploreArticle from '@/components/ui/article/exploreArticle';
 
 type Props = unknown;
 
-const getPosts = async () => api.get<IArticle[]>('latest').then((data) => data.data);
+const getPosts = async () => {
+  return api.get<IArticle[]>('users/1/saves').then((data) => data.data);
+};
 
 const getUser = async () => api.get<IUser>('users/1').then((res) => res.data);
 
 const Profile: NextPage<Props> = async (props) => {
-  const posts = await getPosts();
   const user = await getUser();
+  const posts = await getPosts();
 
   return (
     <div className="h-full self-start">
