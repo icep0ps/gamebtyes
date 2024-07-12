@@ -1,27 +1,39 @@
-import { NextPage } from 'next';
-import { HTMLInputTypeAttribute } from 'react';
+import { Button } from '@/components/ui/button';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
-type Props = {};
-
-const Login: NextPage<Props> = (props) => {
-  const renderFormField = (
-    label: string,
-    name: string,
-    type: HTMLInputTypeAttribute,
-    required?: boolean
-  ) => (
-    <div>
-      <label htmlFor={name}>{label}</label>
-      <input type={type} id={name} name={name} required={required} />
+export default function LoginForm() {
+  return (
+    <div className="flex flex-col mx-auto my-0 p-4 justify-center h-full">
+      <Card className="w-full max-w-sm">
+        <CardHeader>
+          <CardTitle className="text-2xl">Login</CardTitle>
+          <CardDescription>
+            Enter your email below to login to your account.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="grid gap-4">
+          <div className="grid gap-2">
+            <Label htmlFor="email">Email</Label>
+            <Input id="email" type="email" placeholder="m@example.com" required />
+          </div>
+          <div className="grid gap-2">
+            <Label htmlFor="password">Password</Label>
+            <Input id="password" type="password" required />
+          </div>
+        </CardContent>
+        <CardFooter>
+          <Button className="w-full">Sign in</Button>
+        </CardFooter>
+      </Card>
     </div>
   );
-
-  return (
-    <form method="POST">
-      {renderFormField('email', 'email', 'email', true)}
-      {renderFormField('password', 'password', 'password', true)}
-    </form>
-  );
-};
-
-export default Login;
+}
