@@ -5,11 +5,13 @@ import React, { useEffect, useState } from 'react';
 import { Article } from '@/libs/types/types';
 import { ErrorBoundary } from 'react-error-boundary';
 
-import Post from '@/components/explore/Post';
 import ErrorComponent from '@/components/common/Error';
+import Filter from '@/components/common/Filter/Filter';
+import ExploreArticle from '@/components/ui/article/exploreArticle';
+import TrendingArticle from '@/components/ui/article/trendingArticle';
 
 const getPosts = async () => {
-  const res = await fetch('http://localhost:3001/explore');
+  const res = await fetch('http://localhost:3001/latest');
   return res.json();
 };
 
@@ -35,13 +37,24 @@ const Explore = () => {
   return (
     <>
       <div className="flex flex-col gap-2">
-        <h1 className="text-2xl">Explore</h1>
         <input type="text" value="search" className="bg-zinc-800 p-2 w-full rounded-xl" />
       </div>
-      <div className="flex flex-wrap justify-between gap-4 overflow-y-scroll">
+      <div className="flex gap-2 items-center">
+        <Filter name="PC Gaming" />
+        <Filter name="Mobile Gaming" />
+        <Filter name="Console Gaming" />
+      </div>
+
+      <div className="flex flex-col gap-5 ">
+        <h1 className="font-bold text-xl">Trending</h1>
+        <TrendingArticle article={posts[8]} />
+      </div>
+
+      <div className="flex flex-col gap-5 ">
+        <h1 className="font-bold text-xl">Popular</h1>
         <ErrorBoundary FallbackComponent={ErrorComponent}>
           {posts?.map((post) => (
-            <Post key={post.title} post={post} />
+            <ExploreArticle key={post.title} article={post} />
           ))}
         </ErrorBoundary>
       </div>

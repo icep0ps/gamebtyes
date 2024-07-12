@@ -2,7 +2,7 @@ import React from 'react';
 import { NextPage } from 'next';
 
 import api from '@/utils/api';
-import { IArticle, IUser } from '../../../types';
+import { IArticle, IUser } from '../../../../types';
 
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';

@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
 
-import { IArticle, IUser } from '../../../../types';
+import { IArticle, IUser } from '../../../../../types';
 import FullArticle from '@/components/ui/article/fullArticle';
 import api from '@/utils/api';
 
