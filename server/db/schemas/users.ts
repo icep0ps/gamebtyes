@@ -1,7 +1,10 @@
-import { pgTable, serial, varchar, text } from 'drizzle-orm/pg-core';
+import { sql } from 'drizzle-orm';
+import { pgTable, varchar, text } from 'drizzle-orm/pg-core';
 
 export const users = pgTable('users', {
-  id: serial('id').primaryKey(),
+  id: text('id')
+    .primaryKey()
+    .default(sql`gen_random_uuid()`),
   username: varchar('username').notNull(),
   email: text('email').notNull(),
 });

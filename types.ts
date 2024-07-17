@@ -1,4 +1,5 @@
 import { articles } from './server/db/schemas/articles';
+import { users } from './server/db/schemas/users';
 
 export type ScrapResult = {
   title: string | undefined;
@@ -10,20 +11,15 @@ export type ScrapResult = {
   site_logo: string | undefined;
 };
 
-export type FetchOptions = {
-  link: string;
-  requiresBaseURL?: boolean;
+export type GoogleInfo = {
+  sub: string;
+  name: string;
+  given_name: string;
+  picture: string;
+  email: string;
+  email_verified: boolean;
 };
 
-export type FiltersSearchParams = {
-  searchTerm: string;
-  articleType: string;
-  sortBy: string;
-};
-export type ExploreSearchParams = {
-  sitelink: string;
-};
+export type IArticle = typeof articles.$inferInsert;
 
-export type Filter = 'PC Gaming' | 'Mobile Gaming' | 'Console Gaming';
-
-export type Article = typeof articles.$inferInsert;
+export type IUser = typeof users.$inferSelect;
