@@ -1,9 +1,12 @@
-import { Router } from 'express';
-import authController from '../controllers/auth';
+import { Router } from "express";
+import authController from "../controllers/auth";
 
 const authRoute = Router();
-authRoute.get('/oauth2callback', authController.googleAuth);
 
-authRoute.post('/', authController.authPrompt);
+//google auth form goes to this url when it auths user
+authRoute.get("/oauth2callback", authController.googleAuth);
+
+// takes user to google aut form
+authRoute.post("/", authController.authPrompt);
 
 export default authRoute;
