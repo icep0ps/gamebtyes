@@ -1,4 +1,3 @@
-import Breadcrumb from "@/components/ui/breadcrumb";
 import Navigation from "@/components/ui/navigation";
 import AuthProvider from "../hooks/auth";
 import { Toaster } from "@/components/ui/toaster";
@@ -10,12 +9,13 @@ export default function RootLayout({
 }) {
   return (
     <>
-      <Breadcrumb />
       <Toaster />
-      <div className="flex-grow-1 overflow-y-hidden flex flex-col gap-5 relative px-3">
-        <AuthProvider>{children}</AuthProvider>
+      <div className="overflow-y-hidden flex flex-col  gap-4 relative p-3 w-1/2 mx-auto my-0">
+        <AuthProvider>
+          <Navigation />
+          {children}
+        </AuthProvider>
       </div>
-      <Navigation />
     </>
   );
 }
