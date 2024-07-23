@@ -25,8 +25,11 @@ export default function authenticateTokens(
       process.env.REFRESH_TOKEN_SECRET as string,
     );
 
-    if (!decodedRefreshToken)
+    // refresh token expired
+    if (!decodedRefreshToken) {
+      response.clearCookie("token");
       return response.redirect("http://localhost:3000/auth/signup");
+    }
 
     const newAccessToken = jwt.sign(decodedRefreshToken, refresh_token);
     response.header("Authorization", `Bearer ${newAccessToken}`);

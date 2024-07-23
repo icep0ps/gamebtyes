@@ -16,9 +16,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   useLayoutEffect(() => {
     const authInterceptor = api.interceptors.request.use((config) => {
-      config.headers.Authorization = token
-        ? `Bearer ${token}`
-        : config.headers.Authorization;
+      if (token) config.headers.Authorization = `Bearer ${token}`;
       return config;
     });
 
