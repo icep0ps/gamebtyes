@@ -1,4 +1,4 @@
-import Scraper from './Scrapper';
+import Scraper from './scrapper';
 
 class Popular extends Scraper {
   constructor(url: string) {

@@ -1,7 +1,7 @@
 import { type CheerioAPI } from 'cheerio';
 
-import { articles } from '../db/schemas/articles';
-import { categories } from '../db/schemas/categories';
+import { articles } from '../../db/schemas/articles';
+import { categories } from '../../db/schemas/categories';
 
 type RequiredNotNull<T> = {
   [P in keyof T]: NonNullable<T[P]>;
