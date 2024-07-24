@@ -6,7 +6,7 @@ import db from "../../db/client";
 import { users } from "../../db/schemas/users";
 import oAuth2Client from "../../utils/auth/googleAuth";
 import getUserData from "../../utils/auth/getUserData";
-import { GoogleInfo } from "../../../types";
+import { type GoogleInfo, type RedirectResponse } from "../../../types";
 
 export default {
   authPrompt: async function (request: Request, response: Response) {
@@ -20,6 +20,7 @@ export default {
         prompt: "consent",
       });
 
+      response.clearCookie("token");
       return response.json({ url: authorizeUrl });
     } catch (error) {
       response.statusCode = 500;
@@ -51,7 +52,6 @@ export default {
               expiresIn: "30d",
             },
           );
-
           response.cookie("token", refreshToken, { httpOnly: true });
           return response.redirect("http://localhost:3000/");
         }
@@ -60,6 +60,14 @@ export default {
       console.log("Error occurred while trying to auth user: " + error);
       // please handle error lol
     }
+  },
+
+  logUserOut(request: Request, response: Response<RedirectResponse>) {
+    response.clearCookie("token");
+    return response.json({
+      msg: "logout successfull",
+      redirectURL: "http://localhost:3000",
+    });
   },
 };
 
