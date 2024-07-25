@@ -13,6 +13,8 @@ import { Button, ButtonProps } from "../button";
 import api from "@/lib/api";
 import { useToast } from "../use-toast";
 import { AxiosError } from "axios";
+import { ToastAction } from "../toast";
+import Link from "next/link";
 
 type IArticleProps = React.PropsWithChildren &
   React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> & {
@@ -119,12 +121,24 @@ Article.SaveBtn = function save(
           },
         },
       )
-      .then((res) => res.data)
+      .then((res) => {
+        toast({
+          title: "Success",
+          description: res.data.msg,
+        });
+
+        return res.data;
+      })
       .catch((error: AxiosError) => {
         if (error.response?.status === 403)
           toast({
             title: "Login required",
             description: "Please login to save this article",
+            action: (
+              <Link href={"/auth/login"}>
+                <ToastAction altText="Login to save article">Login</ToastAction>
+              </Link>
+            ),
           });
       });
   };
@@ -139,7 +153,5 @@ Article.SaveBtn = function save(
 Article.readArticle = function (
   props: ButtonProps & React.RefAttributes<HTMLButtonElement>,
 ) {
-  const { id } = useArticleContext();
-
   return <Button {...props}>Read article</Button>;
 };
