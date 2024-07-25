@@ -1,5 +1,5 @@
-import { articles } from './server/db/schemas/articles';
-import { users } from './server/db/schemas/users';
+import { users } from "./server/db/schemas/users";
+import { articles } from "./server/db/schemas/articles";
 
 export type ScrapResult = {
   title: string | undefined;
@@ -18,6 +18,20 @@ export type GoogleInfo = {
   picture: string;
   email: string;
   email_verified: boolean;
+};
+
+export type ErrorMessageResponse = {
+  msg: string;
+};
+
+export type userProfile = {
+  user: IUser;
+  savedArticles: IArticle[];
+};
+
+export type RedirectResponse = {
+  msg: string;
+  redirectURL: string;
 };
 
 export type IArticle = typeof articles.$inferInsert;
