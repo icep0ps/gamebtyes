@@ -1,7 +1,10 @@
-import { pgTable, serial, text } from 'drizzle-orm/pg-core';
+import { sql } from 'drizzle-orm/sql';
+import { pgTable, text } from 'drizzle-orm/pg-core';
 
 export const articles = pgTable('articles', {
-  id: serial('id').primaryKey().unique(),
+  id: text('id')
+    .primaryKey()
+    .default(sql`gen_random_uuid()`),
   author: text('author').notNull(),
   title: text('title').notNull(),
   content: text('content').notNull(),
