@@ -9,4 +9,5 @@ authRoute.get("/oauth2callback", authController.googleAuth);
 // takes user to google aut form
 authRoute.post("/", authController.authPrompt);
 
+authRoute.post("/logout", authController.logUserOut);
 export default authRoute;
