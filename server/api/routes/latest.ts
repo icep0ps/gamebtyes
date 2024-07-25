@@ -1,8 +1,8 @@
-import { Router } from 'express';
-import latestController from '../controllers/latest';
+import { Router } from "express";
+import latestController from "../controllers/latest";
 
 const latestRoute = Router();
 
-latestRoute.get('/', latestController.get);
+latestRoute.get("/", latestController.get);
 
 export default latestRoute;

@@ -5,7 +5,6 @@ import express from "express";
 import bodyParser from "body-parser";
 import cookiePaser from "cookie-parser";
 
-import authMiddleware from "./middleware/auth";
 import latestRoute from "./routes/latest";
 import articlesRoute from "./routes/articles";
 import usersRoute from "./routes/users";
