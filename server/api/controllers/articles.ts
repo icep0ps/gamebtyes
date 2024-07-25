@@ -1,8 +1,8 @@
+import { eq } from 'drizzle-orm';
 import { type Request, type Response } from 'express';
 
 import db from '../../db/client';
 import { articles } from '../../db/schemas/articles';
-import { eq } from 'drizzle-orm';
 
 export default {
   getById: async function (request: Request, response: Response) {
@@ -10,10 +10,13 @@ export default {
       const article = await db
         .select()
         .from(articles)
-        .where(eq(articles.id, Number(request.params.id)));
+        .where(eq(articles.id, request.params.id));
       return response.json(article[0]);
     } catch (error) {
-      // add error handling
+      response.statusCode = 500;
+      return response.json({
+        msg: 'Error getting article with id: ' + request.params.id,
+      });
     }
   },
 

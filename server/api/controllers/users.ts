@@ -5,7 +5,6 @@ import db from "../../db/client";
 import { users } from "../../db/schemas/users";
 import { articles } from "../../db/schemas/articles";
 import { usersSavedArticles } from "../../db/schemas/usersSavedArticles";
-import { throws } from "assert";
 import { ErrorMessageResponse, userProfile } from "../../../types";
 
 export default {
@@ -34,12 +33,24 @@ export default {
 
   saveArticle: async function (request: Request, response: Response) {
     try {
-      const data = await db.insert(usersSavedArticles).values({
+      const articleIsSaved = await db
+        .select()
+        .from(usersSavedArticles)
+        .where(eq(request.body.id, usersSavedArticles.articleId));
+
+      if (articleIsSaved.length > 0) {
+        await db
+          .delete(usersSavedArticles)
+          .where(eq(request.body.id, usersSavedArticles.articleId));
+        return response.json({ msg: "Artilce removed from saves" });
+      }
+
+      await db.insert(usersSavedArticles).values({
         articleId: request.body.id,
         userId: "b2c7ccf6-24fd-4305-998b-0da081b8a241",
       });
 
-      return response.json({ msg: "save successful" });
+      return response.json({ msg: "Article saved successful" });
     } catch (error) {
       response.statusCode = 500;
       return response.json({ msg: "Error saving article: " + error });
