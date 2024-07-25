@@ -10,7 +10,7 @@ export default function RootLayout({
   return (
     <>
       <Toaster />
-      <div className="overflow-y-hidden flex flex-col  gap-4 relative p-3 w-1/2 mx-auto my-0">
+      <div className="h-full overflow-y-hidden flex flex-col  gap-4 relative p-3 w-1/2 mx-auto my-0 max-sm:w-11/12">
         <AuthProvider>
           <Navigation />
           {children}
