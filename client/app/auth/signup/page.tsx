@@ -1,20 +1,22 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
+import Link from "next/link";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import api from '@/lib/api';
+} from "@/components/ui/card";
+import api from "@/lib/api";
 
 export default function SignUpPage() {
   const auth = async () => {
-    const res = await api.post<{ url: string }>('/auth').then((res) => res.data);
+    const res = await api
+      .post<{ url: string }>("/auth")
+      .then((res) => res.data);
     window.location.href = res.url;
     return;
   };
@@ -24,7 +26,9 @@ export default function SignUpPage() {
       <Card className="mx-auto max-w-sm">
         <CardHeader>
           <CardTitle className="text-2xl">Sign Up</CardTitle>
-          <CardDescription>Sign up using your google account below.</CardDescription>
+          <CardDescription>
+            Sign up using your google account below.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid gap-4">
@@ -34,7 +38,7 @@ export default function SignUpPage() {
           </div>
 
           <div className="mt-4 text-center text-sm">
-            Already have an account?{' '}
+            Already have an account?{" "}
             <Link href="http://localhost:3001/auth/" className="underline">
               Sign in
             </Link>
