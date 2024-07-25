@@ -1,11 +1,12 @@
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 
-if (process.env.NODE_ENV === 'production') dotenv.config({ path: '.env.production' });
-else dotenv.config({ path: '.env.local' });
+if (process.env.NODE_ENV === "production")
+  dotenv.config({ path: ".env.production" });
+else dotenv.config({ path: ".env.local" });
 
 export default function locals() {
   if (Object.entries(process.env).length == 0)
-    throw new Error('No environment variables found');
+    throw new Error("No environment variables found");
 
   for (const [key, value] of Object.entries(process.env)) {
     if (value === undefined)
