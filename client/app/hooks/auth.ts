@@ -1,15 +1,7 @@
 "use client";
 
 import api from "@/lib/api";
-import { AxiosError } from "axios";
-import { createContext, ReactNode, useLayoutEffect, useState } from "react";
-
-const authContext = createContext(null);
-
-const useAuthContext = () => {
-  if (!authContext) throw new Error("Auth context is not set");
-  return authContext;
-};
+import { ReactNode, useLayoutEffect, useState } from "react";
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [token, setToken] = useState<null | string | undefined>();

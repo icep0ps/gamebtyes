@@ -26,7 +26,7 @@ const Posts = () => {
   }, [showBoundary]);
 
   return (
-    <div className="overflow-y-scroll h-full flex flex-col gap-10 items-center">
+    <div className="overflow-y-scroll h-full flex flex-col gap-10 ">
       {posts?.map((post: IArticle, index) => (
         <HomeArticle article={post} key={post.title + index} />
       ))}
